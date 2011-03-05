@@ -4,9 +4,21 @@
 [alias]
   co = checkout
   st = status
+
   wtf = !<%= config['dotfiles_path'] %>/git/git-wtf
   rank-contributors = !<%= config['dotfiles_path'] %>/git/git-rank-contributors
   show-merges = !<%= config['dotfiles_path'] %>/git/git-show-merges
+
+  changelog = !<%= config['dotfiles_path'] %>/git/git-changelog
+  commits-since = !<%= config['dotfiles_path'] %>/git/git-commits-since
+  contrib = !<%= config['dotfiles_path'] %>/git/git-contrib
+  count = !<%= config['dotfiles_path'] %>/git/git-count
+  delete-branch = !<%= config['dotfiles_path'] %>/git/git-delete-branch
+  delete-tag = !<%= config['dotfiles_path'] %>/git/git-delete-tag
+  ignore = !<%= config['dotfiles_path'] %>/git/git-ignore
+  release = !<%= config['dotfiles_path'] %>/git/git-release
+  repl = !<%= config['dotfiles_path'] %>/git/git-repl
+  summary = !<%= config['dotfiles_path'] %>/git/git-summary
 [color]
   diff = auto
   status = auto
