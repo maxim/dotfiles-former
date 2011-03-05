@@ -1,0 +1,10 @@
+.DS_Store
+.svn
+*~
+*.scratch.*
+*.swp
+.idea
+.bundle
+doc/api/*
+.rvmrc
+dump.rdb

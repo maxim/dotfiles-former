@@ -1,0 +1,51 @@
+# cd
+alias ..='cd ..'
+alias cd..='cd ..'
+alias cd...='cd ../..'
+alias cd....='cd ../../..'
+alias cd.....='cd ../../../..'
+alias cd/='cd /'
+
+alias 1='cd -'
+alias 2='cd +2'
+alias 3='cd +3'
+alias 4='cd +4'
+alias 5='cd +5'
+alias 6='cd +6'
+alias 7='cd +7'
+alias 8='cd +8'
+alias 9='cd +9'
+
+
+alias history='fc -l 1'
+
+# list files
+alias ls='ls -F'
+alias lsa='ls -lAh'
+alias l='ls -al'
+alias ll='ls -l'
+
+# git
+alias gl='git pull'
+alias gp='git push'
+alias gd='git diff'
+alias gc='git commit'
+alias gca='git commit -a'
+alias gco='git checkout'
+alias gb='git branch'
+alias gs='git status'
+alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
+
+# rails
+alias sc='script/console'
+alias ss='script/server'
+alias sg='script/generate'
+alias tlog='tail -f log/development.log'
+alias rst='touch tmp/restart.txt'
+
+# textmate
+alias et='mate . &'
+alias ett='mate app config lib db public spec test Rakefile Capfile CHANGELOG &'
+alias etp='mate app config lib db public spec test vendor/plugins vendor/gems Rakefile Capfile CHANGELOG &'
+alias etts='mate app config lib db public script spec test vendor/plugins vendor/gems Rakefile Capfile CHANGELOG &'

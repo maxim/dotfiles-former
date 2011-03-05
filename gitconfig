@@ -1,0 +1,25 @@
+[user]
+  name = <%= config['gitconfig']['name'] %>
+  email = <%= config['gitconfig']['email'] %>
+[alias]
+  co = checkout
+  st = status
+  wtf = !<%= config['dotfiles_path'] %>/git/git-wtf
+  rank-contributors = !<%= config['dotfiles_path'] %>/git/git-rank-contributors
+  show-merges = !<%= config['dotfiles_path'] %>/git/git-show-merges
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = auto
+[core]
+  excludesfile = <%= config['symlinks_path'] %>/.gitignore
+  editor = <%= config['editor'] %>
+  autocrlf = input
+[apply]
+  whitespace = nowarn
+[format]
+  pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
+[github]
+  user = <%= config['github']['user'] %>
+  token = <%= config['github']['token'] %>

@@ -1,0 +1,7 @@
+sym=`$HOME/.rvm/bin/rvm-prompt u`
+
+if [[ -n $sym ]]; then
+  echo "${sym} ";
+else
+  echo "";
+fi
