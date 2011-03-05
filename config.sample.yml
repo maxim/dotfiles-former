@@ -5,7 +5,7 @@ dotfiles_path: "<%= File.expand_path(File.dirname(__FILE__)) %>"
 symlinks_path: "<%= ENV['HOME'] %>"
 
 # Editor
-editor: mate_wait
+editor: mate -w
 
 # Only files in this list will be compiled and symlinked.
 symlinks:
