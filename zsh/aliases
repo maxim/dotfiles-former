@@ -46,6 +46,6 @@ alias rst='touch tmp/restart.txt'
 
 # textmate
 alias et='mate . &'
-alias ett='mate app config lib db public spec test Rakefile Capfile CHANGELOG &'
-alias etp='mate app config lib db public spec test vendor/plugins vendor/gems Rakefile Capfile CHANGELOG &'
-alias etts='mate app config lib db public script spec test vendor/plugins vendor/gems Rakefile Capfile CHANGELOG &'
+alias ett='mate app config lib db public spec test features Rakefile Capfile Gemfile CHANGELOG &'
+alias etp='mate app config lib db public spec test features vendor Rakefile Capfile Gemfile CHANGELOG &'
+alias etts='mate app config lib db public script spec test features vendor Rakefile Capfile Gemfile CHANGELOG &'
