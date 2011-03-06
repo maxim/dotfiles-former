@@ -380,7 +380,7 @@ DownloadRate=0
 #
 # NOTE: write-buffer is managed by OS (system libraries) and therefore 
 # the effect of the option is highly OS-dependend.
-WriteBufferSize=0
+WriteBufferSize=-1
 
 # Pause if disk space gets below this value (megabytes).
 #
