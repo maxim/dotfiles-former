@@ -8,3 +8,4 @@
 doc/api/*
 .rvmrc
 dump.rdb
+nohup.out
