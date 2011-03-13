@@ -35,14 +35,16 @@ alias gco='git checkout'
 alias gb='git branch'
 alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
-alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
 
-# rails
+# rails 2
 alias sc='script/console'
 alias ss='script/server'
 alias sg='script/generate'
 alias tlog='tail -f log/development.log'
 alias rst='touch tmp/restart.txt'
+
+# rails 3
+alias sr='script/rails'
 
 # textmate
 alias et='mate . &'
