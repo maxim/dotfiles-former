@@ -96,6 +96,7 @@ setopt local_options # allow functions to have local options
 setopt local_traps # allow functions to have local traps
 setopt prompt_subst
 setopt complete_in_word
+setopt complete_aliases
 setopt ignore_eof
 
 zle -N newtab
