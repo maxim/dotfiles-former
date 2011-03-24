@@ -1,0 +1,23 @@
+- name:       "redis"
+  pid_file:   ":project_root/tmp/pids/redis.pid"
+  start:      "redis-server :support_root/redis.conf"
+  stop:       "kill `cat :pid_file`"
+
+- start:      "sleep 5"
+  stop:       "sleep 5"
+
+- name:       "resque"
+  pid_file:   ":project_root/tmp/pids/resque.pid"
+  start:      "/bin/sh -c 'PIDFILE=:pid_file QUEUE=* VERBOSE=1 nohup rake environment resque:work& > :project_root/log/resque.log'"
+  stop:       "kill `cat :pid_file` && rm :pid_file"
+
+- name:       "juggernaut"
+  pid_file:   ":project_root/tmp/juggernaut.pid"
+  start:      "juggernaut -c :project_root/config/juggernaut.yml -d --pid :pid_file --log :project_root/log/juggernaut.log"
+  stop:       "juggernaut -c :project_root/config/juggernaut.yml -k * --pid :pid_file --log :project_root/log/juggernaut.log"
+
+- name:       "unicorn"
+  pid_file:   ":project_root/tmp/pids/unicorn.pid"
+  start:      "unicorn_rails -D -c :support_root/unicorn.conf -p3000"
+  stop:       "kill -QUIT `cat :pid_file`"
+  required:   true
