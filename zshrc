@@ -1,7 +1,7 @@
 export DOTFILES="<%= config['dotfiles_path'] %>"
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/Users/max/Executables
 
-plugins=(brew cap gem git github lighthouse osx vagrant)
+plugins=(brew cap gem github lighthouse osx vagrant)
 
 export EDITOR='<%= config['editor'] %>'
 
