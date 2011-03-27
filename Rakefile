@@ -17,7 +17,12 @@ task :install do
     compiled_path = "#{compiled_dir}/#{source}"
     symlink_path = "#{config['symlinks_path']}/#{symlink}"
 
-    compile_with_locals(source_path, compiled_path, :config => config)
+    if File.directory?(source_path)
+      FileUtils.cp_r(source_path, compiled_path, :remove_destination => true)
+    else
+      compile_with_locals(source_path, compiled_path, :config => config)
+    end
+
     symlink(compiled_path, symlink_path)
     puts "\n"
   end
