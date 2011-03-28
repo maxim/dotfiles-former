@@ -20,6 +20,7 @@
   repl = !<%= config['dotfiles_path'] %>/git/git-repl
   summary = !<%= config['dotfiles_path'] %>/git/git-summary
 	news = !git log $(git log --author='<%= config['gitconfig']['name'] %>' --pretty=format:%H -n1)..
+	mine = !git log --author='<%= config['gitconfig']['name'] %>'
 [color]
   diff = auto
   status = auto
