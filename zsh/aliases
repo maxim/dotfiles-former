@@ -49,6 +49,9 @@ alias rst='touch tmp/restart.txt'
 # rails 3
 alias sr='script/rails'
 
+# cucumber
+alias cuke='cucumber'
+
 # textmate
 alias et='mate . &'
 alias ett='mate app config lib db public spec test features Rakefile Capfile Gemfile CHANGELOG &'
