@@ -56,3 +56,6 @@ alias et='mate . &'
 alias ett='mate app config lib db public spec test features Rakefile Capfile Gemfile CHANGELOG &'
 alias etp='mate app config lib db public spec test features vendor Rakefile Capfile Gemfile CHANGELOG &'
 alias etts='mate app config lib db public script spec test features vendor Rakefile Capfile Gemfile CHANGELOG &'
+
+# takeup
+alias tst='takeup status'
