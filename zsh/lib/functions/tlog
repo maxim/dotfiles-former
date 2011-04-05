@@ -1,0 +1,5 @@
+if test "$1" = ""; then
+	tail -f log/development.log
+else
+	tail -f "log/$1.log"
+fi

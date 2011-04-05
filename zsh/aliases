@@ -43,7 +43,6 @@ alias gcount='git shortlog -sn'
 alias sc='script/console'
 alias ss='script/server'
 alias sg='script/generate'
-alias tlog='tail -f log/development.log'
 alias rst='touch tmp/restart.txt'
 
 # rails 3
