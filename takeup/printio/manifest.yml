@@ -13,8 +13,8 @@
 
 - name:       "unicorn"
   pid_file:   ":project_root/tmp/pids/unicorn.pid"
-  start:      "unicorn_rails -D -c :support_root/unicorn.conf"
-  stop:       "kill -QUIT `cat :pid_file`"
+  start:      "rvmsudo unicorn_rails -D -c :support_root/unicorn.conf -p 80"
+  stop:       "sudo kill -QUIT `cat :pid_file`"
   required:   true
 
 - name:       "sphinx"
