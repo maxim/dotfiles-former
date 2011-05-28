@@ -59,3 +59,7 @@ alias etts='mate app config lib db public script spec test features vendor Rakef
 
 # takeup
 alias tst='takeup status'
+
+# todo
+alias todo='todo -d ~/.todo'
+alias t=todo
