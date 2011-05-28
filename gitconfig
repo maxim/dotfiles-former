@@ -19,8 +19,9 @@
   release = !<%= config['dotfiles_path'] %>/git/git-release
   repl = !<%= config['dotfiles_path'] %>/git/git-repl
   summary = !<%= config['dotfiles_path'] %>/git/git-summary
-	news = !git log $(git log --author='<%= config['gitconfig']['name'] %>' --pretty=format:%H -n1)..
-	mine = !git log --author='<%= config['gitconfig']['name'] %>'
+
+  news = !git log --oneline --decorate $(git log --author='<%= config['gitconfig']['name'] %>' --pretty=format:%H -n1)..
+  mine = !git log --oneline --decorate --author='<%= config['gitconfig']['name'] %>'
 [color]
   diff = auto
   status = auto
@@ -32,8 +33,6 @@
   autocrlf = input
 [apply]
   whitespace = nowarn
-[format]
-  pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
 [github]
   user = <%= config['github']['user'] %>
   token = <%= config['github']['token'] %>

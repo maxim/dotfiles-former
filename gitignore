@@ -9,3 +9,4 @@ doc/api/*
 .rvmrc
 dump.rdb
 nohup.out
+config/initializers/hakunin_initializer.rb
