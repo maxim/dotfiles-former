@@ -1,15 +1,14 @@
 CONFIG_PATH = 'config.yml'
 
+task :default => :symlink
+
 desc 'Run files through erb and install symlinks'
-task :install do
+task :symlink do
   require 'yaml'
   require 'erb'
   require 'fileutils'
 
-  config = YAML.load(ERB.new(File.read(CONFIG_PATH)).result(binding))
-
-  compiled_dir = "#{config['dotfiles_path']}/compiled"
-  FileUtils.mkdir_p(compiled_dir)
+  compiled_dir = prepare_compiled_dir
 
   puts "Will generate: #{config['symlinks'].values.join(', ')}\n\n"
 
@@ -27,7 +26,34 @@ task :install do
     symlink(compiled_path, symlink_path)
     puts "\n"
   end
+end
 
+desc 'Install Janus if it exists in vim subdir.'
+task :janus do
+  compiled_dir = prepare_compiled_dir
+
+  if janus_detected?
+    show_transition 'Install Janus', "#{config['dotfiles_path']}/vim", "#{compiled_dir}/vim"
+    system 'sudo rm -rf compiled/vim && cp -rf vim compiled/'
+    symlink "#{compiled_dir}/vim", "#{config['symlinks_path']}/.vim"
+    puts 'Running Janus rake'
+    system 'cd compiled/vim && sudo rake > /dev/null 2>&1'
+  else
+    puts "Skipping Janus installation."
+  end
+end
+
+desc 'Run rake symlink and rake janus.'
+task :full => [:symlink, :janus]
+
+def prepare_compiled_dir
+  compiled_dir = "#{config['dotfiles_path']}/compiled"
+  FileUtils.mkdir_p(compiled_dir)
+  compiled_dir
+end
+
+def config
+  @config ||= YAML.load(ERB.new(File.read(CONFIG_PATH)).result(binding))
 end
 
 def copy(origin, destination)
@@ -70,4 +96,9 @@ end
 
 def show_transition(verb, origin, destination)
   puts "#{verb} #{origin} => #{destination}"
+end
+
+def janus_detected?
+  janus_git_config = 'vim/.git/config'
+  File.exist?(janus_git_config) && File.read(janus_git_config) =~ /janus\.git/
 end
