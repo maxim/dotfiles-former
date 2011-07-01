@@ -20,7 +20,7 @@
   repl = !<%= config['dotfiles_path'] %>/git/git-repl
   summary = !<%= config['dotfiles_path'] %>/git/git-summary
 
-  news = !git log --oneline --decorate $(git log --author='<%= config['gitconfig']['name'] %>' --pretty=format:%H -n1)..
+  news = !git log --pretty=format:'%Cgreen%h%Creset %s [%Cblue%an%Creset, %Cred%ar%Creset]%Creset' $(git log --author='<%= config['gitconfig']['name'] %>' --pretty=format:%H -n1)..
   mine = !git log --oneline --decorate --author='<%= config['gitconfig']['name'] %>'
 [color]
   diff = auto
