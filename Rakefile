@@ -1,13 +1,13 @@
 CONFIG_PATH = 'config.yml'
 
+require 'yaml'
+require 'erb'
+require 'fileutils'
+
 task :default => :symlink
 
 desc 'Run files through erb and install symlinks'
 task :symlink do
-  require 'yaml'
-  require 'erb'
-  require 'fileutils'
-
   compiled_dir = prepare_compiled_dir
 
   puts "Will generate: #{config['symlinks'].values.join(', ')}\n\n"
