@@ -26,9 +26,9 @@ alias l='ls -al'
 alias ll='ls -l'
 
 # git
-alias gl='git pull'
 alias glr='git pull --rebase'
-alias glog='git log --oneline --decorate'
+alias gl='git log --oneline --decorate'
+alias glog='gl'
 alias gp='git push'
 alias gd='git diff --word-diff'
 alias gc='git commit'
@@ -63,3 +63,6 @@ alias tst='takeup status'
 # todo
 alias todo='todo -d ~/.todo'
 alias t=todo
+
+# printio
+alias restart_printio='takeup restart delayed_job --wait && takeup restart unicorn --wait'
