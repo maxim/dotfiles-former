@@ -1,0 +1,17 @@
+- name:       "mysql"
+  pid_file:   "/usr/local/var/mysql/hakunin.local.pid"
+  start:      "mysql.server start"
+  stop:       "mysql.server stop"
+  required:   true
+
+- name:       "redis"
+  pid_file:   ":project_root/tmp/pids/redis.pid"
+  start:      "redis-server :support_root/redis.conf"
+  stop:       "kill `cat :pid_file`"
+  required:   true
+
+- name:       "unicorn"
+  pid_file:   ":project_root/tmp/pids/unicorn.pid"
+  start:      "unicorn_rails -D -c :support_root/unicorn.conf -p3000"
+  stop:       "kill -QUIT `cat :pid_file`"
+  required:   true
