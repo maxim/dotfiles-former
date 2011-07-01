@@ -1,4 +1,5 @@
-set guifont=Bitstream\ Vera\ Sans\ Mono:h13
+set guifont=Inconsolata:h16
+color Herald
 
 set guioptions-=r
 set guioptions-=R
