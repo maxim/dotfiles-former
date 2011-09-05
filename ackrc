@@ -2,11 +2,6 @@
 --type-add=css=.sass
 --type-set=markdown=.markdown,.md,.mdown
 --type-set=cucumber=.feature
---ruby
---css
---js
---markdown
---cucumber
 --ignore-dir=gems
 --ignore-dir=plugins
 --ignore-dir=rails
@@ -14,5 +9,7 @@
 --ignore-dir=tmp
 --ignore-dir=scratch_directory
 --ignore-dir=cache
+--ignore-dir=node_modules
+--ignore-dir=doc
 --type-set=bin=.idx,.pack,.sqlite3,.sqlite3-journal,.rdb,.swf,.gif,.png,.ico,.jpg,.jpeg,.tiff,.pdf,.mp3,.JPG,.sqlite,.dat,.crt
 --nobin
