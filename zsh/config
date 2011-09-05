@@ -1,6 +1,6 @@
 # PROMPT
 if [[ -n $SSH_CONNECTION ]]; then
-  export PS1='%m:%3~$(git_prompt_info)%# '
+  export PS1='%n@%m:%3~$(git_prompt_info)%# '
 else
   export PS1='$(rvm_unicode_symbol)%3~$(git_prompt_info)%# '
 fi
