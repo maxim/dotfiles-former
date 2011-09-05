@@ -63,6 +63,3 @@ alias tst='takeup status'
 # todo
 alias todo='todo -d ~/.todo'
 alias t=todo
-
-# printio
-alias restart_printio='takeup restart delayed_job --wait && takeup restart unicorn --wait'
