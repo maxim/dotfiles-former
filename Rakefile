@@ -20,7 +20,7 @@ task :symlink do
     if File.directory?(source_path)
       copy(source_path, compiled_path)
     else
-      compile_with_locals(source_path, compiled_path, :config => config)
+      compile_with_accessors(source_path, compiled_path, :config => config)
     end
 
     symlink(compiled_path, symlink_path)
@@ -62,13 +62,13 @@ def copy(origin, destination)
   FileUtils.cp_r(origin, destination, :remove_destination => true)
 end
 
-def compile_with_locals(origin, destination, locals = {})
+def compile_with_accessors(origin, destination, accessors = {})
   show_transition "Compile", origin, destination
   template = ERB.new(File.read(origin))
-  binding_with_locals = build_binding_with_locals(locals)
+  binding_with_accessors = build_binding_with_accessors(accessors)
 
   File.open(destination, 'w') do |file|
-    file.write(template.result(binding_with_locals))
+    file.write(template.result(binding_with_accessors))
   end
 end
 
@@ -78,20 +78,22 @@ def symlink(existing_path, symlink_path)
   FileUtils.ln_sf existing_path, symlink_path
 end
 
-def build_binding_with_locals(locals = {})
+def build_binding_with_accessors(accessors = {})
   wrapper = Class.new do
+    attr_accessor *accessors.keys.map(&:to_sym)
+
     def get_binding
       binding
     end
   end
 
-  binding_with_locals = wrapper.new.get_binding
+  wrapper_instance = wrapper.new
 
-  locals.each_pair do |name, value|
-    eval("#{name} = #{value.inspect}", binding_with_locals)
+  accessors.each_pair do |name, value|
+    wrapper_instance.send(:"#{name}=", value)
   end
 
-  binding_with_locals
+  wrapper_instance.get_binding
 end
 
 def show_transition(verb, origin, destination)
