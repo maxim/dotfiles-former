@@ -4,10 +4,37 @@ dotfiles_path: "<%= File.expand_path(File.dirname(__FILE__)) %>"
 # Specify where symlinks will go (normally user's $HOME).
 symlinks_path: "<%= ENV['HOME'] %>"
 
-# Editor
-editor: mate -w
+zsh:
+  editor: mate -w
+  theme: 'robbyrussell'
 
-# Only files in this list will be compiled and symlinked.
+  paths:
+    - /usr/bin
+    - /bin
+    - /usr/sbin
+    - /sbin
+    - /usr/local/bin
+    - /usr/X11/bin
+    - "<%= ENV['HOME'] %>"/Executables
+
+  plugins:
+    - git
+    - brew
+    - bundler
+    - autojump
+    - cap
+    - extract
+    - gem
+    - github
+    - heroku
+    - history-substring-search
+    - lighthouse
+    - node
+    - npm
+    - osx
+    - thor
+
+# Only files in this list will be symlinked.
 symlinks:
   ackrc:     .ackrc
   nzbget:    .nzbget
@@ -18,7 +45,6 @@ symlinks:
   irbrc:     .irbrc
   railsrc:   .railsrc
 
-# Personal info
 nzbget:
   host: YOUR_NNTP_HOST
   user: YOUR_NNTP_USER
