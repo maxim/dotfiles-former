@@ -4,52 +4,50 @@ require 'yaml'
 require 'erb'
 require 'fileutils'
 
-task :default => :symlink
+IGNORED_FILES = ['config.sample.yml', 'config.yml', 'compiled', 'Rakefile']
 
-desc 'Run files through erb and install symlinks'
+task :default => [:compile, :symlink]
+
+desc 'Copy files and folders into compiled directory, running erb in all files'
+task :compile do
+  dotfiles_dir = config['dotfiles_path']
+  prepare_compiled_dir
+
+  Dir["#{dotfiles_dir}/*"].each do |path|
+    path_filename = File.basename(path)
+
+    unless IGNORED_FILES.include?(path_filename)
+      target_path = "#{compiled_path}/#{path_filename}"
+
+      if File.directory?(path)
+        copy(path, target_path)
+      else
+        compile_with_accessors(path, target_path, :config => config)
+      end
+    end
+  end
+end
+
+desc 'Install symlinks from user HOME to compiled dir'
 task :symlink do
-  compiled_dir = prepare_compiled_dir
-
-  puts "Will generate: #{config['symlinks'].values.join(', ')}\n\n"
+  log "Will generate: #{config['symlinks'].values.join(', ')}\n\n"
 
   config['symlinks'].each_pair do |source, symlink|
-    source_path = "#{config['dotfiles_path']}/#{source}"
-    compiled_path = "#{compiled_dir}/#{source}"
+    target_path = "#{compiled_path}/#{source}"
     symlink_path = "#{config['symlinks_path']}/#{symlink}"
-
-    if File.directory?(source_path)
-      copy(source_path, compiled_path)
-    else
-      compile_with_accessors(source_path, compiled_path, :config => config)
-    end
-
-    symlink(compiled_path, symlink_path)
-    puts "\n"
+    symlink(target_path, symlink_path)
+    log "\n"
   end
 end
 
-desc 'Install Janus if it exists in vim subdir.'
-task :janus do
-  compiled_dir = prepare_compiled_dir
-
-  if janus_detected?
-    show_transition 'Install Janus', "#{config['dotfiles_path']}/vim", "#{compiled_dir}/vim"
-    system 'sudo rm -rf compiled/vim && cp -rf vim compiled/'
-    symlink "#{compiled_dir}/vim", "#{config['symlinks_path']}/.vim"
-    puts 'Running Janus rake'
-    system 'cd compiled/vim && sudo rake > /dev/null 2>&1'
-  else
-    puts "Skipping Janus installation."
-  end
+def prepare_compiled_dir 
+  FileUtils.rm_rf(compiled_path)
+  FileUtils.mkdir_p(compiled_path)
+  compiled_path
 end
 
-desc 'Run rake symlink and rake janus.'
-task :full => [:symlink, :janus]
-
-def prepare_compiled_dir
-  compiled_dir = "#{config['dotfiles_path']}/compiled"
-  FileUtils.mkdir_p(compiled_dir)
-  compiled_dir
+def compiled_path
+  "#{config['dotfiles_path']}/compiled"
 end
 
 def config
@@ -97,10 +95,9 @@ def build_binding_with_accessors(accessors = {})
 end
 
 def show_transition(verb, origin, destination)
-  puts "#{verb} #{origin} => #{destination}"
+  log "#{verb} #{origin} => #{destination}"
 end
 
-def janus_detected?
-  janus_git_config = 'vim/.git/config'
-  File.exist?(janus_git_config) && File.read(janus_git_config) =~ /janus\.git/
+def log(text)
+  puts text if ENV['DEBUG']
 end
