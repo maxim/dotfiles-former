@@ -1,3 +1,5 @@
+<% git_functions_dir = "#{config['dotfiles_path']}/compiled/git" %>
+
 [user]
   name = <%= config['gitconfig']['name'] %>
   email = <%= config['gitconfig']['email'] %>
@@ -5,20 +7,20 @@
   co = checkout
   st = status
 
-  wtf = !<%= config['dotfiles_path'] %>/git/git-wtf
-  rank-contributors = !<%= config['dotfiles_path'] %>/git/git-rank-contributors
-  show-merges = !<%= config['dotfiles_path'] %>/git/git-show-merges
+  wtf = !<%= git_functions_dir %>/git-wtf
+  rank-contributors = !<%= git_functions_dir %>/git-rank-contributors
+  show-merges = !<%= git_functions_dir %>/git-show-merges
 
-  changelog = !<%= config['dotfiles_path'] %>/git/git-changelog
-  commits-since = !<%= config['dotfiles_path'] %>/git/git-commits-since
-  contrib = !<%= config['dotfiles_path'] %>/git/git-contrib
-  count = !<%= config['dotfiles_path'] %>/git/git-count
-  delete-branch = !<%= config['dotfiles_path'] %>/git/git-delete-branch
-  delete-tag = !<%= config['dotfiles_path'] %>/git/git-delete-tag
-  ignore = !<%= config['dotfiles_path'] %>/git/git-ignore
-  release = !<%= config['dotfiles_path'] %>/git/git-release
-  repl = !<%= config['dotfiles_path'] %>/git/git-repl
-  summary = !<%= config['dotfiles_path'] %>/git/git-summary
+  changelog = !<%= git_functions_dir %>/git-changelog
+  commits-since = !<%= git_functions_dir %>/git-commits-since
+  contrib = !<%= git_functions_dir %>/git-contrib
+  count = !<%= git_functions_dir %>/git-count
+  delete-branch = !<%= git_functions_dir %>/git-delete-branch
+  delete-tag = !<%= git_functions_dir %>/git-delete-tag
+  ignore = !<%= git_functions_dir %>/git-ignore
+  release = !<%= git_functions_dir %>/git-release
+  repl = !<%= git_functions_dir %>/git-repl
+  summary = !<%= git_functions_dir %>/git-summary
 
   news = !git log --pretty=format:'%Cgreen%h%Creset %s [%Cblue%an%Creset, %Cred%ar%Creset]%Creset' $(git log --author='<%= config['gitconfig']['name'] %>' --pretty=format:%H -n1)..
   mine = !git log --pretty=format:"%h%x09%ad%x09%s" --date=short --author='<%= config['gitconfig']['name'] %>'
