@@ -10,6 +10,7 @@ task :default => [:compile, :symlink]
 
 desc 'Copy files and folders into compiled directory, running erb in all files'
 task :compile do
+  log 'Compiling...'
   dotfiles_dir = config['dotfiles_path']
   prepare_compiled_dir
 
@@ -26,10 +27,14 @@ task :compile do
       end
     end
   end
+
+  # Wire things up within compile dir
+  post_process
 end
 
-desc 'Install symlinks from user HOME to compiled dir'
+desc 'Install symlinks from user\'s HOME to compiled dir'
 task :symlink do
+  log 'Symlinking...'
   log "Will generate: #{config['symlinks'].values.join(', ')}\n\n"
 
   config['symlinks'].each_pair do |source, symlink|
@@ -38,6 +43,39 @@ task :symlink do
     symlink(target_path, symlink_path)
     log "\n"
   end
+end
+
+desc 'Update dependencies to latest versions, compile, and symlink'
+task :update => ['update:oh_my_zsh', :compile, :symlink]
+
+namespace :update do
+  desc 'Update oh-my-zsh to latest'
+  task :oh_my_zsh do
+    update_submodule 'oh-my-zsh'
+  end
+end
+
+
+def post_process
+  log 'Post-processing...'
+  # symlink oh-my-zsh/custom to zsh/
+  symlink_path = "#{compiled_path}/oh-my-zsh/custom"
+  target_path = "#{compiled_path}/zsh"
+  symlink(target_path, symlink_path)
+
+  # symlink all themes under zsh/themes from oh-my-zsh/themes
+  themes_dir = "#{compiled_path}/oh-my-zsh/themes"
+  Dir["#{compiled_path}/zsh/themes/*.zsh-theme"].each do |theme_path|
+    symlink_path = "#{themes_dir}/#{File.basename(theme_path)}"
+    symlink(theme_path, symlink_path)
+  end
+end
+
+def update_submodule(name)
+  path = "#{config['dotfiles_path']}/#{name}"
+  system('cd', path)
+  system('git', 'pull')
+  system('cd', config['dotfiles_path'])
 end
 
 def prepare_compiled_dir 
@@ -72,7 +110,7 @@ end
 
 def symlink(existing_path, symlink_path)
   show_transition "Symlink", symlink_path, existing_path
-  FileUtils.rm_f symlink_path
+  FileUtils.rm_rf symlink_path
   FileUtils.ln_sf existing_path, symlink_path
 end
 
