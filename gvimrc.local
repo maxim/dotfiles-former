@@ -1,7 +1,0 @@
-set guifont=Inconsolata:h16
-color Herald
-
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
