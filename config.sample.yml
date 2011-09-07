@@ -4,6 +4,17 @@ dotfiles_path: "<%= File.expand_path(File.dirname(__FILE__)) %>"
 # Specify where symlinks will go (normally user's $HOME).
 symlinks_path: "<%= ENV['HOME'] %>"
 
+# Only files in this list will be symlinked.
+symlinks:
+  ackrc:     .ackrc
+  nzbget:    .nzbget
+  zshrc:     .zshrc
+  gemrc:     .gemrc
+  gitconfig: .gitconfig
+  gitignore: .gitignore
+  irbrc:     .irbrc
+  railsrc:   .railsrc
+
 zsh:
   editor: mate -w
   theme: 'robbyrussell'
@@ -33,22 +44,6 @@ zsh:
     - npm
     - osx
     - thor
-
-# Only files in this list will be symlinked.
-symlinks:
-  ackrc:     .ackrc
-  nzbget:    .nzbget
-  zshrc:     .zshrc
-  gemrc:     .gemrc
-  gitconfig: .gitconfig
-  gitignore: .gitignore
-  irbrc:     .irbrc
-  railsrc:   .railsrc
-
-nzbget:
-  host: YOUR_NNTP_HOST
-  user: YOUR_NNTP_USER
-  pass: YOUR_NNTP_PASS
  
 gitconfig:
   name: YOUR_NAME
@@ -57,3 +52,10 @@ gitconfig:
 github:
   user: YOUR_GITHUB_LOGIN
   token: YOUR_GITHUB_API_TOKEN
+
+gitignore:
+  - .DS_Store
+  - .svn
+  - *~
+  - *.scratch.*
+  - *.swp

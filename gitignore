@@ -1,12 +1,1 @@
-.DS_Store
-.svn
-*~
-*.scratch.*
-*.swp
-.idea
-.bundle
-doc/api/*
-.rvmrc
-dump.rdb
-nohup.out
-config/initializers/hakunin_initializer.rb
+<%= config['gitignore'].join("\n") %>
