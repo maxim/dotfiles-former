@@ -1,1 +1,12 @@
+.DS_Store
+.svn
+*~
+*.scratch.*
+*.swp
+.idea
+.bundle
+doc/api/*
+.rvmrc
+dump.rdb
+nohup.out
 <%= config['gitignore'].join("\n") %>

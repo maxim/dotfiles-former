@@ -32,7 +32,7 @@ plugins=(<%= config['zsh']['plugins'].join(' ') %>)
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=<%= config['zsh']['paths'].join(':') %>
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:$HOME/Executables
 export EDITOR='<%= config['zsh']['editor'] %>'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
