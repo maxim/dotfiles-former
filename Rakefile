@@ -45,6 +45,14 @@ task :symlink do
   end
 end
 
+desc 'Reconfigure OSX settings'
+task :osx => :compile do
+  log 'Configuring osx...'
+  system('chmod', '+x', "#{compiled_path}/osx")
+  `cd #{compiled_path} && ./osx`
+  `cd #{config['dotfiles_path']}`
+end
+
 desc 'Update dependencies to latest versions, compile, and symlink'
 task :update => ['update:oh_my_zsh', :compile, :symlink]
 
