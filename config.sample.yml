@@ -16,6 +16,7 @@ symlinks:
   railsrc:       .railsrc
   takeup:        .takeup
   todo:          .todo
+  ssh_config:    .ssh/config
 
 zsh:
   editor: 'mate -w'
@@ -49,3 +50,13 @@ github:
 # Add personal gitignores here
 gitignore:
   - config/initializers/YOUR_NAME_initializer.rb
+
+# Setup ssh config for enabling `ssh foo` type of shortcuts
+ssh:
+  - name: 'foo'
+    host: 'foo.example.com'
+    user: 'foo_user'
+    identity: "<%= ENV['HOME'] %>/.ec2/foo"
+    alive:
+      interval: 30
+      count: 120
