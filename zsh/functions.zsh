@@ -19,3 +19,11 @@ function rvm_unicode_symbol() {
     echo "";
   fi
 }
+
+function onetest() {
+  if [ -d spec ]; then
+    ruby -Ispec $1 --color --example $2
+  else
+    ruby -Itest $1 --name $2
+  fi
+}
