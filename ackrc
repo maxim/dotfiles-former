@@ -4,6 +4,7 @@
 --type-set=cucumber=.feature
 --type-set=zsh=.zsh,.zsh-theme
 --type-set=config=.conf
+--type-set=views=.erb,.haml
 --ignore-dir=gems
 --ignore-dir=plugins
 --ignore-dir=rails
