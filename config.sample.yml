@@ -17,6 +17,7 @@ symlinks:
   takeup:        .takeup
   todo:          .todo
   ssh_config:    .ssh/config
+  rdebugrc:      .rdebugrc
 
 zsh:
   editor: 'mate -w'
