@@ -3,6 +3,7 @@
 [user]
   name = <%= config['git']['config']['name'] %>
   email = <%= config['git']['config']['email'] %>
+
 [alias]
   co = checkout
   st = status -sb
@@ -11,19 +12,29 @@
   rank-contributors = !<%= git_functions_dir %>/git-rank-contributors
   show-merges = !<%= git_functions_dir %>/git-show-merges
 
+  # Only show new commits since my last commit
   news = !git log --pretty=format:'%Cgreen%h%Creset %s [%Cblue%an%Creset, %Cred%ar%Creset]%Creset' $(git log --author='<%= config['git']['config']['name'] %>' --pretty=format:%H -n1)..
+
+  # Only show my commits with datestamps
   mine = !git log --pretty=format:"%h%x09%ad%x09%s" --date=short --author='<%= config['git']['config']['name'] %>'
+
 [color]
   diff = auto
   status = auto
   branch = auto
   ui = auto
+
 [core]
   excludesfile = <%= config['symlinks_path'] %>/.gitignore
   editor = <%= config['editor'] %>
   autocrlf = input
+
 [apply]
   whitespace = nowarn
+
 [github]
   user = <%= config['github']['user'] %>
   token = <%= config['github']['token'] %>
+
+[push]
+  default = current
