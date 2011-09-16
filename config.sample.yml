@@ -40,9 +40,10 @@ zsh:
     - osx
     - thor
  
-gitconfig:
-  name: YOUR_NAME
-  email: YOUR_EMAIL
+git:
+  config:
+    name: YOUR_NAME
+    email: YOUR_EMAIL
 
 github:
   user: YOUR_GITHUB_LOGIN

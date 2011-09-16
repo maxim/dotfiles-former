@@ -1,18 +1,20 @@
 <% git_functions_dir = "#{config['dotfiles_path']}/compiled/git" %>
 
+[init]
+  templatedir = <%= git_functions_dir %>/templates
 [user]
-  name = <%= config['gitconfig']['name'] %>
-  email = <%= config['gitconfig']['email'] %>
+  name = <%= config['git']['config']['name'] %>
+  email = <%= config['git']['config']['email'] %>
 [alias]
   co = checkout
-  st = status
+  st = status -sb
 
   wtf = !<%= git_functions_dir %>/git-wtf
   rank-contributors = !<%= git_functions_dir %>/git-rank-contributors
   show-merges = !<%= git_functions_dir %>/git-show-merges
 
-  news = !git log --pretty=format:'%Cgreen%h%Creset %s [%Cblue%an%Creset, %Cred%ar%Creset]%Creset' $(git log --author='<%= config['gitconfig']['name'] %>' --pretty=format:%H -n1)..
-  mine = !git log --pretty=format:"%h%x09%ad%x09%s" --date=short --author='<%= config['gitconfig']['name'] %>'
+  news = !git log --pretty=format:'%Cgreen%h%Creset %s [%Cblue%an%Creset, %Cred%ar%Creset]%Creset' $(git log --author='<%= config['git']['config']['name'] %>' --pretty=format:%H -n1)..
+  mine = !git log --pretty=format:"%h%x09%ad%x09%s" --date=short --author='<%= config['git']['config']['name'] %>'
 [color]
   diff = auto
   status = auto
