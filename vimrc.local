@@ -3,3 +3,9 @@ color VYLight
 " Split buffer using cmd+d (vsplit) and cmd+D (split) akin to iTerm
 map  <D-D> :split<CR>
 map  <D-d> :vsplit<CR>
+
+" Always show invisibles
+set list
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
