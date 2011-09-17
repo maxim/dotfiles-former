@@ -293,7 +293,7 @@ end
 def action_message(verb, target, options = {})
   ljust = options[:ljust] || 7
   verb = green(verb.ljust(ljust))
-  "#{verb} #{origin}"
+  "#{verb} #{target}"
 end
 
 def show_action(verb, target, options = {})
