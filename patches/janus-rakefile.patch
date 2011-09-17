@@ -1,0 +1,16 @@
+REASON   We don't want Janus taking over symlinks.
+
+diff --git a/Rakefile b/Rakefile
+index b7cd202..e77f95a 100644
+--- a/Rakefile
++++ b/Rakefile
+@@ -251,8 +251,7 @@ task :pull do
+ end
+ 
+ task :default => [
+-  :update_docs,
+-  :link_vimrc
++  :update_docs
+ ]
+ 
+ desc "Clear out all build artifacts and rebuild the latest Janus"

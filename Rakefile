@@ -7,7 +7,8 @@ IGNORED_FILES = [ 'config.sample.yml',
                   'Rakefile',
                   'tmp',
                   'janus',
-                  'README.md' ]
+                  'README.md',
+                  'patches' ]
 
 SUBMODULES = ['oh-my-zsh', 'janus']
 
@@ -21,8 +22,8 @@ task :default => [ :prepare_directories,
                    :pre_process,
                    :copy,
                    :compile,
-                   :post_process,
-                   :symlink ]
+                   :symlink,
+                   :post_process ]
 
 # desc 'Prepare ignored directories'
 task :prepare_directories do
@@ -50,11 +51,20 @@ end
 # desc 'Preprocess packages before copying/compiling'
 task :pre_process do
   decorate('Pre-processing...') do
-    unless File.exists?("#{dotfiles_path}/tmp/janus")
-      # Install Janus to tmp so we don't have to reinstall it all the time
+    unless File.exists?("#{tmp_path}/janus")
+      # Cache Janus to tmp so we don't have to reinstall it all the time
       copy("#{dotfiles_path}/janus", "#{tmp_path}/janus")
+      patch("#{tmp_path}/janus/Rakefile", "#{dotfiles_path}/patches/janus-rakefile.patch")
+
+      # Temporarily symlink ~/.vim to Janus for installation
+      symlink("#{tmp_path}/janus", "#{config['symlinks_path']}/.vim")
+      
+      # Install Janus
       show_transition('Install', 'Janus', "#{tmp_path}/janus")
       system "cd #{tmp_path}/janus && rake > /dev/null 2>&1 && cd #{dotfiles_path}"
+
+      show_action('Delete', "#{config['symlinks_path']}/.vim")
+      FileUtils.rm("#{config['symlinks_path']}/.vim")
     end
   end
 end
@@ -88,7 +98,7 @@ task :compile do
   end
 end
 
-# desc 'Wire things up in compiled dir after copying and compiling'
+# desc 'Finalize setup once everything is wired up'
 task :post_process do
   decorate 'Post-processing...' do
 
@@ -103,16 +113,12 @@ task :post_process do
       symlink_path = "#{themes_dir}/#{File.basename(theme_path)}"
       symlink(theme_path, symlink_path)
     end
-
-    # apply patches
-    apply_patches
   end
 end
 
 # desc 'Install symlinks from user\'s HOME to compiled dir'
 task :symlink do
   decorate 'Symlinking...' do
-
     config['symlinks'].each_pair do |source, symlink|
       target_path = "#{compiled_path}/#{source}"
       symlink_path = "#{config['symlinks_path']}/#{symlink}"
@@ -131,7 +137,15 @@ end
 
 
 desc 'Update dependencies to latest versions, compile, and symlink'
-task :update => ['update:oh_my_zsh', 'update:janus', :default]
+task :update do
+  decorate 'Updating' do
+    ['oh_my_zsh', 'janus'].each do |dep_name|
+      Rake::Task["update:#{dep_name}"].invoke
+    end
+  end
+
+  Rake::Task["default"].invoke
+end
 
 namespace :update do
   # desc 'Update oh-my-zsh to latest'
@@ -141,9 +155,10 @@ namespace :update do
 
   # desc 'Update Janus to latest'
   task :janus do
-    update_submodule 'janus'
-    show_action 'Delete', "#{tmp_path}/janus"
-    FileUtils.rm_rf("#{tmp_path}/janus")
+    if update_submodule('janus')
+      show_action 'Delete', "#{tmp_path}/janus"
+      FileUtils.rm_rf("#{tmp_path}/janus")
+    end
   end
 end
 
@@ -173,13 +188,18 @@ end
 def update_submodule(name)
   path = "#{dotfiles_path}/#{name}"
   system('cd', path)
-  system('git', 'pull')
+  out = `git pull`
   system('cd', dotfiles_path)
+  updated = out !~ /Already up/
+  show_transition('Update', name, updated ? 'got new updates' : 'already up to date')
+  updated
 end
 
 def prepare_compiled_dir
-  show_action 'Delete', compiled_path
-  FileUtils.rm_rf(compiled_path)
+  if File.exists?(compiled_path)
+    show_action 'Delete', compiled_path
+    FileUtils.rm_rf(compiled_path)
+  end
 
   show_action 'Create', compiled_path
   FileUtils.mkdir_p(compiled_path)
@@ -270,18 +290,6 @@ def build_binding_with_accessors(accessors = {})
   end
 
   wrapper_instance.get_binding
-end
-
-def apply_patches
-  Dir["#{compiled_path}/patches/*.patch"].each do |patch_path|
-    patch = File.read(patch_path)
-    if data = patch.match(/APPLY-TO\s+(\S+)/)
-      target_path = "#{compiled_path}/#{data[1]}"
-      patch(target_path, patch_path)
-    else
-      next
-    end
-  end
 end
 
 def decorate(title)
