@@ -54,17 +54,25 @@ task :pre_process do
     unless File.exists?("#{tmp_path}/janus")
       # Cache Janus to tmp so we don't have to reinstall it all the time
       copy("#{dotfiles_path}/janus", "#{tmp_path}/janus")
+
       patch("#{tmp_path}/janus/Rakefile", "#{dotfiles_path}/patches/janus-rakefile.patch")
 
       # Temporarily symlink ~/.vim to Janus for installation
       symlink("#{tmp_path}/janus", "#{config['symlinks_path']}/.vim")
-      
+
+      # Temporarily symlink ~/.janus.rake to janus.rake for installation
+      symlink("#{dotfiles_path}/janus.rake", "#{config['symlinks_path']}/.janus.rake")
+
       # Install Janus
       show_transition('Install', 'Janus', "#{tmp_path}/janus")
       system "cd #{tmp_path}/janus && rake > /dev/null 2>&1 && cd #{dotfiles_path}"
 
+      # Remove temporary symlinks
       show_action('Delete', "#{config['symlinks_path']}/.vim")
       FileUtils.rm("#{config['symlinks_path']}/.vim")
+
+      show_action('Delete', "#{config['symlinks_path']}/.janus.rake")
+      FileUtils.rm("#{config['symlinks_path']}/.janus.rake")
     end
   end
 end
@@ -144,7 +152,7 @@ task :update do
     end
   end
 
-  Rake::Task["default"].invoke
+  Rake::Task['default'].invoke
 end
 
 namespace :update do
@@ -156,9 +164,16 @@ namespace :update do
   # desc 'Update Janus to latest'
   task :janus do
     if update_submodule('janus')
-      show_action 'Delete', "#{tmp_path}/janus"
-      FileUtils.rm_rf("#{tmp_path}/janus")
+      delete_janus_build
     end
+  end
+end
+
+namespace :janus do
+  desc 'Reinstall Janus, in case janus.rake was modified'
+  task :rebuild do
+    delete_janus_build
+    Rake::Task['default'].invoke
   end
 end
 
@@ -183,6 +198,11 @@ task :cleanup do
     show_action 'Delete', tmp_path
     FileUtils.rm_rf(tmp_path)
   end
+end
+
+def delete_janus_build
+  show_action 'Delete', "#{tmp_path}/janus"
+  FileUtils.rm_rf("#{tmp_path}/janus")
 end
 
 def update_submodule(name)
@@ -313,7 +333,11 @@ def show_transition(verb, origin, destination, options = {})
 end
 
 def green(text)
-  "\e[32m#{text}\e[0m"
+  if ENV['TERM'] == 'dumb'
+    text
+  else
+    "\e[32m#{text}\e[0m"
+  end
 end
 
 def log(text)
