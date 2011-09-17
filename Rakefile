@@ -55,7 +55,9 @@ task :pre_process do
       # Cache Janus to tmp so we don't have to reinstall it all the time
       copy("#{dotfiles_path}/janus", "#{tmp_path}/janus")
 
+      # Patch Janus with some fixes before install
       patch("#{tmp_path}/janus/Rakefile", "#{dotfiles_path}/patches/janus-rakefile.patch")
+      patch("#{tmp_path}/janus/gvimrc", "#{dotfiles_path}/patches/janus-gvimrc.patch")
 
       # Temporarily symlink ~/.vim to Janus for installation
       symlink("#{tmp_path}/janus", "#{config['symlinks_path']}/.vim")
