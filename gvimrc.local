@@ -1,2 +1,8 @@
 color VYLight
 set guifont=Inconsolata:h16
+
+" Disable all scrollbars (to prevent window resizing when splitting)
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
