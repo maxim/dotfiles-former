@@ -9,3 +9,6 @@ set list
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
+
+" Easier to read with slightly increased linespace
+set linespace=1
