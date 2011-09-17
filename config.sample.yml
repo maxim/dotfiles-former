@@ -18,6 +18,9 @@ symlinks:
   todo:          .todo
   ssh_config:    .ssh/config
   rdebugrc:      .rdebugrc
+  janus:         .vim
+  janus/vimrc:   .vimrc
+  janus/gvimrc:  .gvimrc
 
 zsh:
   editor: 'mate -w'
