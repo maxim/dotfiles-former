@@ -173,7 +173,7 @@ end
 
 namespace :janus do
   desc 'Reinstall Janus, in case janus.rake was modified'
-  task :rebuild do
+  task :build do
     delete_janus_build
     Rake::Task['default'].invoke
   end
@@ -345,3 +345,4 @@ end
 def log(text)
   puts text if ENV['DEBUG']
 end
+
