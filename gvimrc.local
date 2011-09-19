@@ -6,3 +6,29 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
+
+" Closes window if there are more windows opened to the same buffer.
+" Otherwise deletes buffer.
+fun! WinQuitOrBufDelete ()
+  let win_cnt = 0
+
+  for wnr in range(1, winnr("$"))
+    if winbufnr(wnr) == bufnr("%")
+      let win_cnt += 1
+    endif
+
+    if win_cnt == 2
+      close
+      return
+    endif
+  endfor
+
+  bd
+endf
+
+if has("gui_macvim")
+  " Command-W for WinQuitOrBufDelete
+  macmenu &File.Close key=<nop>
+  map <D-w> :call WinQuitOrBufDelete()<CR>
+  imap <D-w> <Esc>:call WinQuitOrBufDelete()<CR>
+endif
