@@ -15,3 +15,6 @@ set linespace=1
 
 " No blinking cursor
 set gcr=n:blinkon0
+
+map <C-a> <Esc>
+imap <C-a> <Esc>
