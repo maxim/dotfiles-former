@@ -34,3 +34,6 @@ alias t=todo
 
 # cucumber
 alias cuke='cucumber'
+
+# ps
+alias pgrep='ps ax | grep -v grep | grep $1'
