@@ -51,30 +51,32 @@ end
 # desc 'Preprocess packages before copying/compiling'
 task :pre_process do
   decorate('Pre-processing...') do
-    unless File.exists?("#{tmp_path}/janus")
-      # Cache Janus to tmp so we don't have to reinstall it all the time
-      copy("#{dotfiles_path}/janus", "#{tmp_path}/janus")
+    if install_janus?
+      unless File.exists?("#{tmp_path}/janus")
+        # Cache Janus to tmp so we don't have to reinstall it all the time
+        copy("#{dotfiles_path}/janus", "#{tmp_path}/janus")
 
-      # Patch Janus with some fixes before install
-      patch("#{tmp_path}/janus/Rakefile", "#{dotfiles_path}/patches/janus-rakefile.patch")
-      patch("#{tmp_path}/janus/gvimrc", "#{dotfiles_path}/patches/janus-gvimrc.patch")
+        # Patch Janus with some fixes before install
+        patch("#{tmp_path}/janus/Rakefile", "#{dotfiles_path}/patches/janus-rakefile.patch")
+        patch("#{tmp_path}/janus/gvimrc", "#{dotfiles_path}/patches/janus-gvimrc.patch")
 
-      # Temporarily symlink ~/.vim to Janus for installation
-      symlink("#{tmp_path}/janus", "#{config['symlinks_path']}/.vim")
+        # Temporarily symlink ~/.vim to Janus for installation
+        symlink("#{tmp_path}/janus", "#{config['symlinks_path']}/.vim")
 
-      # Temporarily symlink ~/.janus.rake to janus.rake for installation
-      symlink("#{dotfiles_path}/janus.rake", "#{config['symlinks_path']}/.janus.rake")
+        # Temporarily symlink ~/.janus.rake to janus.rake for installation
+        symlink("#{dotfiles_path}/janus.rake", "#{config['symlinks_path']}/.janus.rake")
 
-      # Install Janus
-      show_transition('Install', 'Janus', "#{tmp_path}/janus")
-      system "cd #{tmp_path}/janus && rake > /dev/null 2>&1 && cd #{dotfiles_path}"
+        # Install Janus
+        show_transition('Install', 'Janus', "#{tmp_path}/janus")
+        system "cd #{tmp_path}/janus && rake > /dev/null 2>&1 && cd #{dotfiles_path}"
 
-      # Remove temporary symlinks
-      show_action('Delete', "#{config['symlinks_path']}/.vim")
-      FileUtils.rm("#{config['symlinks_path']}/.vim")
+        # Remove temporary symlinks
+        show_action('Delete', "#{config['symlinks_path']}/.vim")
+        FileUtils.rm("#{config['symlinks_path']}/.vim")
 
-      show_action('Delete', "#{config['symlinks_path']}/.janus.rake")
-      FileUtils.rm("#{config['symlinks_path']}/.janus.rake")
+        show_action('Delete', "#{config['symlinks_path']}/.janus.rake")
+        FileUtils.rm("#{config['symlinks_path']}/.janus.rake")
+      end
     end
   end
 end
@@ -200,6 +202,10 @@ task :cleanup do
     show_action 'Delete', tmp_path
     FileUtils.rm_rf(tmp_path)
   end
+end
+
+def install_janus?
+  config['symlinks'].has_key?('janus')
 end
 
 def delete_janus_build
