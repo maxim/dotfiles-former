@@ -1,7 +1,7 @@
 REASON Remove all the NERDTree-specific logic.
 
 diff --git a/gvimrc b/gvimrc
-index af0fe2c..5ccb108 100644
+index af0fe2c..2d85417 100644
 --- a/gvimrc
 +++ b/gvimrc
 @@ -77,75 +77,6 @@ function StartTerm()
@@ -80,7 +80,7 @@ index af0fe2c..5ccb108 100644
  " Utility functions to create file commands
  function s:CommandCabbr(abbreviation, expansion)
    execute 'cabbrev ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
-@@ -166,21 +97,12 @@ function s:DefineCommand(name, destination)
+@@ -166,21 +97,20 @@ function s:DefineCommand(name, destination)
    call s:CommandCabbr(a:name, a:destination)
  endfunction
  
@@ -90,40 +90,52 @@ index af0fe2c..5ccb108 100644
 -  let stay = exists("a:1") ? a:1 : 1
 -
 -  NERDTree
--
+ 
 -  if !stay
 -    wincmd p
--  endif
++  if exists(":CommandTFlush") == 2
++    CommandTFlush
+   endif
  endfunction
  
  function Touch(file)
    execute "!touch " . shellescape(a:file, 1)
 -  call s:UpdateNERDTree()
++
++  if exists(":CommandTFlush") == 2
++    CommandTFlush
++  endif
  endfunction
  
  function Remove(file)
-@@ -192,20 +114,13 @@ function Remove(file)
-   else
+@@ -193,19 +123,20 @@ function Remove(file)
      execute "!rm " . shellescape(a:file, 1)
    endif
--
+ 
 -  call s:UpdateNERDTree()
++  if exists(":CommandTFlush") == 2
++    CommandTFlush
++  endif
  endfunction
  
  function Mkdir(file)
    execute "!mkdir " . shellescape(a:file, 1)
 -  call s:UpdateNERDTree()
- endfunction
+-endfunction
  
- function Edit(file)
+-function Edit(file)
 -  if exists("b:NERDTreeRoot")
 -    wincmd p
--  endif
--
++  if exists(":CommandTFlush") == 2
++    CommandTFlush
+   endif
++endfunction
+ 
++function Edit(file)
    execute "e " . fnameescape(a:file)
  
  ruby << RUBY
-@@ -219,14 +134,11 @@ ruby << RUBY
+@@ -219,14 +150,11 @@ ruby << RUBY
  RUBY
  endfunction
  
