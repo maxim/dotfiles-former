@@ -10,7 +10,7 @@ IGNORED_FILES = [ 'config.sample.yml',
                   'README.md',
                   'patches' ]
 
-SUBMODULES = ['oh-my-zsh', 'janus']
+SUBMODULES = ['oh-my-zsh', 'janus', 'snipmate-snippets']
 
 require 'yaml'
 require 'erb'
@@ -76,6 +76,13 @@ task :pre_process do
 
         show_action('Delete', "#{config['symlinks_path']}/.janus.rake")
         FileUtils.rm("#{config['symlinks_path']}/.janus.rake")
+
+        # Copy snippets from snipmate-snippets
+        copy("#{dotfiles_path}/snipmate-snippets", "#{tmp_path}/janus/snippets")
+
+        # Remove garbage from snippets
+        show_action('Delete', "#{tmp_path}/janus/snippets/Rakefile")
+        FileUtils.rm_f("#{tmp_path}/janus/snippets/Rakefile")
       end
     end
   end
@@ -151,7 +158,7 @@ end
 desc 'Update dependencies to latest versions, compile, and symlink'
 task :update do
   decorate 'Updating' do
-    ['oh_my_zsh', 'janus'].each do |dep_name|
+    ['oh_my_zsh', 'janus', 'snipmate_snippets'].each do |dep_name|
       Rake::Task["update:#{dep_name}"].invoke
     end
   end
@@ -170,6 +177,11 @@ namespace :update do
     if update_submodule('janus')
       delete_janus_build
     end
+  end
+
+  # desc 'Update snipmate-snippets to latest'
+  task :snipmate_snippets do
+    update_submodule 'snipmate-snippets'
   end
 end
 
