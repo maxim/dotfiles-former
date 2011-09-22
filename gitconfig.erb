@@ -16,7 +16,7 @@
   news = !git log --pretty=format:'%Cgreen%h%Creset %s [%Cblue%an%Creset, %Cred%ar%Creset]%Creset' $(git log --author='<%= config['git']['config']['name'] %>' --pretty=format:%H -n1)..
 
   # Only show my commits with datestamps
-  mine = !git log --pretty=format:"%h%x09%ad%x09%s" --date=short --author='<%= config['git']['config']['name'] %>'
+  mine = !git log --pretty=format:"%h%x09%ad%x09%s" --date=iso --author='<%= config['git']['config']['name'] %>' | cut -c 1-24,34- | less
 
 [color]
   diff = auto
