@@ -1,3 +1,6 @@
+support/config.yml
+support/build/
+
+# Backwards compatibility
 config.yml
 compiled/
-tmp/

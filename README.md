@@ -12,24 +12,16 @@ I want to be able to easily depend on other packages for my dotfiles, such as [o
 
 The default rake task runs the following chain.
 
-    [ :prepare_directories,
-      :prepare_submodules,
-      :pre_process,
-      :copy,
-      :compile,
-      :symlink,
-      :post_process ]
+    [ :download, :build, :install ]
 
-The main idea here is that the files and directories in the root of git repo are not the ones being used, they are only the source files. You can modify them and run rake to update your actual dotfiles, which reside in `compiled` dir. This separation enables a couple of important possibilities.
+The main idea here is that the files and directories in the root of git repo are not the ones being used, they are only the source files. You can modify them and run rake to update your actual dotfiles, which reside in `build` dir. This separation enables a couple of important possibilities.
 
 - it's possible to run erb on config files
 - it's possible to patch dependencies while preserving the clean state for updates
 
-Essentially, the rake task creates `compiled` directory, initializes submodules (oh-my-zsh, janus), copies everything to `compiled` dir, compiles every `foo.erb` replacing it with `foo`, then symlinks the specified files and directories to your home dir.
+Essentially, the rake task creates `build` directory, initializes submodules (oh-my-zsh, etc), copies everything to `build` dir, parses every `foo.erb` replacing it with `foo`, performs any custom `post_build` tasks, then symlinks the specified files and directories to your home dir.
 
-However, that's not all. There is also pre- and post-processing. The pre-processor is running before anything is copied. For example, it caches Janus into `tmp` dir, patches it there, then temporarily symlinks `~/.vim` to that Janus cached dir, runs Janus's rake command to install it. This way Janus can be integrated with everything else, and yet be an easily updateable submodule.
-
-A post-processor is run after everything else is done. For example, it symlinks a custom zsh directory into `oh-my-zsh` (inside `compiled` dir), and adds my theme to `oh-my-zsh`, because they don't have a customization hook for that.
+The custom `post_build` tasks include things like symlinking the custom zsh directory into `oh-my-zsh`, and adding my theme to `oh-my-zsh`, because they don't have a customization hook for that.
 
 
 ### Install

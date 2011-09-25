@@ -1,9 +1,5 @@
-export DOTFILES="<%= config['dotfiles_path'] %>"
-
-COMPILED_DOTFILES=$DOTFILES/compiled
-
 # Path to your oh-my-zsh configuration.
-ZSH=$COMPILED_DOTFILES/oh-my-zsh
+ZSH=<%= build_path %>/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
