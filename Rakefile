@@ -105,6 +105,6 @@ task :cleanup do
       worker.delete("#{path}/*")
     end
 
-    worker.delete(build_path)
+    worker.delete(registry.build_path)
   end
 end

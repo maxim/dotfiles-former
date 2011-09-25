@@ -20,8 +20,8 @@ class Manager
   end
 
   def each_symlink_path(&block)
-    Dir["#{@registry.vendor_path}/*"].each do |path|
-      block.call(path)
+    @registry.symlinks.each_pair do |source, symlink|
+      block.call("#{@registry.symlinks_path}/#{symlink}")
     end
   end
 
