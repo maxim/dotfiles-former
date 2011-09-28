@@ -71,6 +71,11 @@ class Manager
   end
 
   def invoke_task(task_name)
-    ::Rake::Task[task_name].invoke
+    if ::Rake::Task.task_defined?(task_name)
+      ::Rake::Task[task_name].invoke
+      true
+    else
+      false
+    end
   end
 end

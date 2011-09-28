@@ -57,36 +57,55 @@ class Worker
     end
   end
 
+  def goto_path(path, &block)
+    back = Dir.pwd
+    Dir.chdir(path)
+    output = block.call
+    Dir.chdir(back)
+    output
+  end
+
   def go_and_run(executable_path)
-    back = `pwd`.strip
     executable_dir = File.dirname(executable_path)
     executable_name = File.basename(executable_path)
     @logger.report('Run', executable_path)
 
     unless @dry
-      `cd #{executable_dir} && ./#{executable_name}`
-      `cd #{back}`
+      goto_path(executable_dir) { `./#{executable_name}` }
     end
   end
 
-  def fetch_submodules
-    @logger.report 'Download', 'dependencies'
+  def fetch_submodules(path = nil)
+    if path
+      @logger.report('Download', "#{File.basename(path)} dependencies")
 
-    unless @dry
-      system 'git submodule update --init > /dev/null 2>&1'
+      unless @dry
+        goto_path(path) do
+          system 'git submodule update --init --recursive > /dev/null 2>&1'
+        end
+      end
+    else
+      @logger.report('Download', 'dependencies')
+
+      unless @dry
+        system 'git submodule update --init --recursive > /dev/null 2>&1'
+      end
     end
   end
 
   def update_submodule(path)
     unless @dry
-      back = `pwd`.strip
-      system('cd', path)
-      out = `git pull`
-      system('cd', back)
+      out = goto_path(path) { `git pull` }
+
       updated = out !~ /Already up/
       @logger.report('Update', File.basename(path), :to => (updated ? 'got new updates' : 'already up to date'))
       updated
     end
+  end
+
+  def recursive_update_submodule(path)
+    update_submodule(path)
+    fetch_submodules(path)
   end
 
   def parse_erb(origin, destination, accessors = {})

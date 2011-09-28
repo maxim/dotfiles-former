@@ -94,6 +94,12 @@ namespace :oh_my_zsh do
   end
 end
 
+namespace :janus do
+  task :update do
+    worker.recursive_update_submodule "#{registry.vendor_path}/janus"
+  end
+end
+
 desc 'Remove symlinks, wipe cloned submodules, build dir'
 task :cleanup do
   logger.denote('Cleaning up...') do
