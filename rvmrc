@@ -1,0 +1,2 @@
+export rvm_path="/Users/max/.rvm"
+export rvm_trust_rvmrcs_flag=1
