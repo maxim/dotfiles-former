@@ -59,20 +59,20 @@ class Manager
   end
 
   def invoke_post_build_tasks
-    @registry.vendor_rake_namespaces.each do |namespace|
+    @registry.namespaces.each do |namespace|
       invoke_task("#{namespace}:post_build")
     end
   end
 
   def invoke_update_tasks
-    @registry.vendor_rake_namespaces.each do |namespace|
+    @registry.namespaces.each do |namespace|
       invoke_task("#{namespace}:update")
     end
   end
 
   def invoke_task(task_name)
-    if ::Rake::Task.task_defined?(task_name)
-      ::Rake::Task[task_name].invoke
+    if @registry.task_defined?(task_name)
+      @registry.task(task_name).invoke
       true
     else
       false

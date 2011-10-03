@@ -23,10 +23,16 @@ class Registry
     "#{build_path}/osx"
   end
 
-  def vendor_rake_namespaces
-    @namespaces ||= Dir["#{vendor_path}/*"].map do |path|
-      File.basename(path).gsub('-', '_')
-    end
+  def namespaces
+    ::Rake.application.tasks.map(&:name).select{|t| t.include?(':')}.map{|t| t.split(':').first}.uniq
+  end
+
+  def task(name)
+    ::Rake::Task[name]
+  end
+
+  def task_defined?(name)
+    ::Rake::Task.task_defined?(name)
   end
 
   def vendor_path
