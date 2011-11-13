@@ -27,3 +27,7 @@ function onetest() {
     ruby -Itest $1 --name $2
   fi
 }
+
+function tm() {
+  mkdir -p `dirname "$1"` && touch $1 && mate $1
+}
