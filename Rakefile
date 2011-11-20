@@ -94,19 +94,7 @@ namespace :oh_my_zsh do
   end
 end
 
-namespace :janus do
-  task :update do
-    worker.recursive_update_submodule "#{registry.vendor_path}/janus"
-  end
-end
-
 namespace :emacs_prelude do
-  task :post_build do
-    # symlink emacs.d to emacs-prelude
-    worker.symlink "#{registry.build_path}/emacs-prelude",
-                   "#{registry.build_path}/emacs.d"
-  end
-
   task :update do
     worker.update_submodule "#{registry.vendor_path}/emacs-prelude"
   end

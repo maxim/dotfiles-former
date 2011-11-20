@@ -19,9 +19,7 @@ symlinks:
   ssh_config:    .ssh/config
   rdebugrc:      .rdebugrc
   rvmrc:         .rvmrc
-  janus:         .vim
-  janus/vimrc:   .vimrc
-  janus/gvimrc:  .gvimrc
+  emacs-prelude: .emacs.d
 
 zsh:
   editor: 'mate -w'
