@@ -39,8 +39,6 @@ class Manager
   end
 
   def each_erb_job(&block)
-    vendor_dirs = Dir["#"]
-
     Dir["#{@registry.build_path}/**/*.erb"].each do |src|
       dst = src.chomp('.erb')
 
