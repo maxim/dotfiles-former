@@ -100,6 +100,18 @@ namespace :janus do
   end
 end
 
+namespace :emacs_prelude do
+  task :post_build do
+    # symlink emacs.d to emacs-prelude
+    worker.symlink "#{registry.build_path}/emacs-prelude",
+                   "#{registry.build_path}/emacs.d"
+  end
+
+  task :update do
+    worker.update_submodule "#{registry.vendor_path}/emacs-prelude"
+  end
+end
+
 desc 'Remove symlinks, wipe cloned submodules, build dir'
 task :cleanup do
   logger.denote('Cleaning up...') do

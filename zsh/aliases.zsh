@@ -37,3 +37,6 @@ alias cuke='cucumber'
 
 # ps
 alias pgrep='ps ax | grep -v grep | grep $1'
+
+# emacs
+alias emacs="/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs -nw"
