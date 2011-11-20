@@ -39,14 +39,23 @@ class Manager
   end
 
   def each_erb_job(&block)
+    vendor_dirs = Dir["#"]
+
     Dir["#{@registry.build_path}/**/*.erb"].each do |src|
       dst = src.chomp('.erb')
-      block.call(src, dst, { :config        => @registry.config,
-                             :build_path    => @registry.build_path,
-                             :dotfiles_path => @registry.dotfiles_path,
-                             :symlinks_path => @registry.symlinks_path,
-                             :osx_path      => @registry.osx_path,
-                             :vendor_path   => @registry.vendor_path })
+
+      vendor_dirs = Dir["#{@registry.vendor_path}/*"].map{|p| File.basename(p)}
+      build_vendor_paths = vendor_dirs.map{|d| "#{@registry.build_path}/#{d}" }
+
+      # Exclude vendor dirs from erb parsing
+      if build_vendor_paths.none?{|path| src.include?(path) }
+        block.call(src, dst, { :config        => @registry.config,
+                               :build_path    => @registry.build_path,
+                               :dotfiles_path => @registry.dotfiles_path,
+                               :symlinks_path => @registry.symlinks_path,
+                               :osx_path      => @registry.osx_path,
+                               :vendor_path   => @registry.vendor_path })
+      end
     end
   end
 
