@@ -1,8 +1,8 @@
 function tlog() {
   if test "$1" = ""; then
-  	tail -f log/development.log
+    tail -f log/development.log
   else
-  	tail -f "log/$1.log"
+    tail -f "log/$1.log"
   fi
 }
 
@@ -30,4 +30,13 @@ function onetest() {
 
 function tm() {
   mkdir -p `dirname "$1"` && touch $1 && mate $1
+}
+
+function track_git_branch() {
+  if test "`current_branch`" = ""; then
+    echo 'Not in git repo.';
+  else
+    echo "running: git branch --set-upstream `current_branch` origin/`current_branch`";
+    git branch --set-upstream `current_branch` origin/`current_branch`;
+  fi
 }

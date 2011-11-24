@@ -21,6 +21,7 @@
   # Only show my commits with datestamps
   mine = !git log --pretty=format:"%h' '%ad' '%s" --date=short --date-order --author='<%= config['git']['config']['name'] %>'
 
+  # Push and track
   publish = push -u
 [color]
   diff = auto
