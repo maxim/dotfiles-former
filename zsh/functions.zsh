@@ -40,3 +40,16 @@ function track_git_branch() {
     git branch --set-upstream `current_branch` origin/`current_branch`;
   fi
 }
+
+function open_airbrake_error() {
+  if [ ! -f .airbrake-url ]; then
+    echo "There is no .airbrake-url file in the current directory..."
+    return 0;
+  else
+    airbrake_url=$(cat .airbrake-url);
+    echo "Opening ticket #$1";
+    `open $airbrake_url/errors/$1`;
+  fi
+}
+
+alias abo='open_airbrake_error'
