@@ -1,3 +1,4 @@
+# git
 alias gl='git log --oneline --decorate'
 compdef _git gl=git-log
 
@@ -40,3 +41,6 @@ alias pgrep='ps ax | grep -v grep | grep $1'
 
 # emacs
 alias emacs="/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs"
+
+# bundler
+alias binstubs="bundle install --binstubs=./bundler_stubs"
