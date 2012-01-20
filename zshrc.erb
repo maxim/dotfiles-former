@@ -32,3 +32,9 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/Exec
 export EDITOR='<%= config['zsh']['editor'] %>'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+<% if config['zsh']['vars'] %>
+  <% config['zsh']['vars'].each_pair do |name, value| %>
+export <%= name.upcase %>='<%= value %>'
+  <% end %>
+<% end %>
