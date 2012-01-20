@@ -1,9 +1,3 @@
 [submodule "support/vendor/oh-my-zsh"]
 	path = support/vendor/oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
-[submodule "support/vendor/janus"]
-	path = support/vendor/janus
-	url = git://github.com/carlhuda/janus.git
-[submodule "support/vendor/emacs-prelude"]
-	path = support/vendor/emacs-prelude
-	url = git://github.com/bbatsov/emacs-prelude.git
