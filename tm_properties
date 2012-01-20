@@ -1,0 +1,42 @@
+# Basic Settings
+fontName       = "Inconsolata"
+fontSize       = 16
+tabSize        = 2
+softTabs       = true
+wrapColumn     = 80
+# wrapColumn   = "Use Window Frame" # for infinite end
+sofWrap        = false
+showInvisibles = true
+
+# File visibility
+myGlobalIncludes = ".tm_properties,.gitignore"
+fileBrowserGlob = "{*,$myGlobalIncludes}"
+include ="{$include,$myGlobalIncludes}"
+
+myGlobalExcludes = "build,dist,log,vendor,tmp,bundler_stubs"
+excludeInFileChooser = "{$excludeInFileChooser,$myGlobalExcludes}"
+excludeInFolderSearch = "{$excludeInFolderSearch},$myGlobalExcludes"
+
+excludeinBrowser = "{$excludeInBrowser,log,vendor,tmp}"
+
+# Variables
+TM_GIT               = "/usr/local/bin/git"
+TM_RUBY              = "/Users/max/.rvm/bin/rvm-auto-ruby"
+TM_ORGANIZATION_NAME = "Bitsonnet"
+
+# show the path to the current tab's file in the window title 
+windowTitle    = "$TM_DISPLAYNAME${TM_DIRECTORY/\A(?:\/Users\/max\w+\/?(.*)|(.+))\z/${2:? – ${2/\A\/Users\/max/~/}:${1/\A(?=.)/ – /}}/}"
+
+[ *.{txt,md,mdown,markdown} ]
+spellChecking  = true
+spellingLanguage = 'en'
+
+[ .git/COMMIT_EDITMSG ]
+spellChecking = true
+spellingLanguage = 'en'
+
+[ *.{icns,ico,jpg,jpeg,m4v,nib,pdf,png,psd,pyc,rtf,tif,tiff,xib} ]
+binary = true
+
+[ "{README,INSTALL,LICENSE,TODO,CHANGELOG}" ]
+fileType = "text.plain"
