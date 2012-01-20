@@ -98,6 +98,11 @@ namespace :emacs_prelude do
   task :update do
     worker.update_submodule "#{registry.vendor_path}/emacs-prelude"
   end
+  task :post_build do
+    Dir["#{registry.build_path}/emacs/*.el"].each do |src_el_path|
+      worker.symlink(src_el_path, "#{registry.build_path}/emacs-prelude/personal/#{File.basename(src_el_path)}")
+    end
+  end
 end
 
 desc 'Remove symlinks, wipe cloned submodules, build dir'
