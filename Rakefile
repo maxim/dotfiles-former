@@ -94,12 +94,6 @@ namespace :oh_my_zsh do
   end
 end
 
-namespace :emacs_prelude do
-  task :update do
-    worker.update_submodule "#{registry.vendor_path}/emacs-prelude"
-  end
-end
-
 desc 'Remove symlinks, wipe cloned submodules, build dir'
 task :cleanup do
   logger.denote('Cleaning up...') do
