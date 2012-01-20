@@ -5,7 +5,7 @@ require 'erb'
 require 'fileutils'
 
 %w(registry manager worker logger).each do |dep|
-  require "support/lib/#{dep}"
+  require "./support/lib/#{dep}"
 end
 
 registry = Registry.new(CONFIG_PATH)
