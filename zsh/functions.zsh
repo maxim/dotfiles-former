@@ -6,6 +6,14 @@ function tlog() {
   fi
 }
 
+function schema() {
+  if test "$1" = ""; then
+    grep 'create_table' db/schema.rb | cut -d \" -f2
+  else
+    sed -n "/create_table \"$1/,/end/p" db/schema.rb
+  fi
+}
+
 function remote_console() {
   /usr/bin/env ssh $1 "( cd $2 && ruby script/console production )"
 }
