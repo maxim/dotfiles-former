@@ -22,6 +22,12 @@ alias sr='script/rails'
 
 # takeup
 alias tst='takeup status'
+alias tup='cd /Users/max/dev/madmimi && takeup down -w && cd /Users/max/dev/printio/printio && takeup -w'
+alias tum='cd /Users/max/dev/printio/printio && takeup down -w && cd /Users/max/dev/madmimi && takeup -w'
+
+# sublime
+alias stm="subl --project /Users/max/dev/madmimi/madmimi.sublime-project"
+alias stp="subl --project /Users/max/dev/printio/printio/printio.sublime-project"
 
 # textmate
 alias et='mate . &'
@@ -43,4 +49,4 @@ alias pgrep='ps ax | grep -v grep | grep $1'
 alias emacs="/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs"
 
 # bundler
-alias binstubs="bundle install --binstubs=./bundler_stubs"
+alias binstubs="bundle install --binstubs=./.bundler_stubs"
