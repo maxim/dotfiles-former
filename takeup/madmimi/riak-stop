@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+/usr/local/bin/riak stop && rm -f /Users/max/dev/madmimi/tmp/pids/riak.pid && kill `pidof epmd`

@@ -10,6 +10,12 @@
   stop:       "kill `cat :pid_file`"
   required:   true
 
+- name:       "riak"
+  pid_file:   ":project_root/tmp/pids/riak.pid"
+  start:      ":support_root/riak-start"
+  stop:       ":support_root/riak-stop"
+  required:   true
+
 - name:       "unicorn"
   pid_file:   ":project_root/tmp/pids/unicorn.pid"
   start:      "unicorn_rails -D -c :support_root/unicorn.conf -p3000"

@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+/usr/local/bin/riak start &&
+echo `pidof beam.smp` > "/Users/max/dev/madmimi/tmp/pids/riak.pid"
