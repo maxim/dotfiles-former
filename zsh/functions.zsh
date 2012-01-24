@@ -14,20 +14,6 @@ function schema() {
   fi
 }
 
-function remote_console() {
-  /usr/bin/env ssh $1 "( cd $2 && ruby script/console production )"
-}
-
-function rvm_unicode_symbol() {
-  sym=`$HOME/.rvm/bin/rvm-prompt u`
-
-  if [[ -n $sym ]]; then
-    echo "${sym} ";
-  else
-    echo "";
-  fi
-}
-
 function onetest() {
   if [ -d spec ]; then
     ruby -Ispec $1 --color --example $2
@@ -37,7 +23,7 @@ function onetest() {
 }
 
 function tm() {
-  mkdir -p `dirname "$1"` && touch $1 && mate $1
+  mkdir -p `dirname "$1"` && touch $1 && subl $1
 }
 
 function track_git_branch() {
@@ -59,5 +45,14 @@ function open_airbrake_error() {
     `open $airbrake_url/errors/$1`;
   fi
 }
-
 alias abo='open_airbrake_error'
+
+function rvm_unicode_symbol() {
+  sym=`$HOME/.rvm/bin/rvm-prompt u`
+
+  if [[ -n $sym ]]; then
+    echo "${sym} ";
+  else
+    echo "";
+  fi
+}
