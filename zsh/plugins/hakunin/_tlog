@@ -1,0 +1,2 @@
+#compdef tlog
+compadd $(ls log/*.log | xargs basename -s '.log')
