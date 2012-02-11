@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+puts '-> loaded ~/.pryrc'
+
+Pry.config.editor = "<%= config['zsh']['editor'] %>"
+
+Pry.config.prompt = [
+  proc do |obj, nest_level, pry|
+    obj_name = Pry.view_clip(obj)
+    obj_name == 'main' ? ">> " : "#{obj_name} > "
+  end,
+
+  proc do |obj, nest_level, pry|
+    obj_name = Pry.view_clip(obj)
+    obj_name == 'main' ? ">> " : "#{obj_name}   "
+  end
+]
+
+load '<%= config['symlinks_path'] %>/.railsrc' unless ENV['RAILS_ENV'].nil?

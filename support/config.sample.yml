@@ -19,11 +19,14 @@ symlinks:
   ssh_config:    .ssh/config
   rdebugrc:      .rdebugrc
   rvmrc:         .rvmrc
-  emacs-prelude: .emacs.d
+  pryrc:         .pryrc
 
 zsh:
   editor: 'mate -w'
   theme: 'robbyrussell'
+
+  vars:
+    SOME_SHELL_VARIABLE: 'foo'
 
   plugins:
     - git
@@ -41,7 +44,7 @@ zsh:
     - npm
     - osx
     - thor
- 
+
 git:
   config:
     name: YOUR_NAME
