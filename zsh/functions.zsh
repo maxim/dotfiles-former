@@ -10,7 +10,7 @@ function schema() {
   if test "$1" = ""; then
     grep 'create_table' db/schema.rb | cut -d \" -f2
   else
-    sed -n "/create_table \"$1/,/end/p" db/schema.rb
+    sed -n "/create_table \"$1/,/^ *end *$/p" db/schema.rb
   fi
 }
 
