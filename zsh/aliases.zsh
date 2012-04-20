@@ -22,8 +22,7 @@ alias sr='script/rails'
 
 # takeup
 alias tst='takeup status'
-alias tup='cd /Users/max/dev/madmimi && takeup down -w && cd /Users/max/dev/printio/printio && takeup -w'
-alias tum='cd /Users/max/dev/printio/printio && takeup down -w && cd /Users/max/dev/madmimi && takeup -w'
+alias tru='takeup restart unicorn'
 
 # sublime
 alias stm="subl --project /Users/max/dev/madmimi/madmimi.sublime-project"
