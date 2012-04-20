@@ -26,6 +26,16 @@ function tm() {
   mkdir -p `dirname "$1"` && touch $1 && subl $1
 }
 
+function lc() {
+  if [ -d $1 ]; then
+    ls -anh $1
+  else
+    if [ -f $1 ]; then
+      cat $1
+    fi
+  fi
+}
+
 function track_git_branch() {
   if test "`current_branch`" = ""; then
     echo 'Not in git repo.';
