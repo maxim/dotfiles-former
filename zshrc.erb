@@ -31,6 +31,14 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/Executables
 export EDITOR='<%= config['zsh']['editor'] %>'
 
+# Enable autojump
+if [ -f `brew --prefix`/etc/autojump ]; then
+  . `brew --prefix`/etc/autojump
+fi
+
+# Enable hub wrapper for git
+function git(){hub "$@"}
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 <% if config['zsh']['vars'] %>
