@@ -49,6 +49,10 @@ def hide_log
   change_log(nil)
 end
 
+if defined?(Pry)
+  show_log
+end
+
 # showing log by default
 IRB.conf[:IRB_RC] = Proc.new do
   show_log
