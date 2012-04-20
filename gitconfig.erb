@@ -19,7 +19,7 @@
   news-diff = !git diff $(git log --author='<%= config['git']['config']['name'] %>' --pretty=format:%H -n1)..
 
   # Only show my commits with datestamps
-  mine = !git log --pretty=format:"%h' '%ad' '%s" --date=short --date-order --author='<%= config['git']['config']['name'] %>'
+  mine = !git log --pretty=format:"%h' '%ad' '%s" --date=local --date-order --author='<%= config['git']['config']['name'] %>'
 
   # Push and track
   publish = push -u
