@@ -1,5 +1,8 @@
 <% git_functions_dir = "#{build_path}/git" %>
 
+[init]
+  templatedir = <%= "#{git_functions_dir}/template" %>
+
 [user]
   name = <%= config['git']['config']['name'] %>
   email = <%= config['git']['config']['email'] %>
