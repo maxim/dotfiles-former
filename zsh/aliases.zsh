@@ -20,13 +20,12 @@ alias sd='script/destroy'
 # rails 3
 alias sr='script/rails'
 
+# rails custom
+alias sn='script/news --oneline'
+
 # takeup
 alias tst='takeup status'
 alias tru='takeup restart unicorn'
-
-# sublime
-alias stm="subl --project /Users/max/dev/madmimi/madmimi.sublime-project"
-alias stp="subl --project /Users/max/dev/printio/printio/printio.sublime-project"
 
 # textmate
 alias et='mate . &'
@@ -44,8 +43,3 @@ alias cuke='cucumber'
 # ps
 alias pgrep='ps ax | grep -v grep | grep $1'
 
-# emacs
-alias emacs="/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs"
-
-# bundler
-alias binstubs="bundle install --binstubs=./.bundler_stubs"
