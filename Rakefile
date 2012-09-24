@@ -75,6 +75,88 @@ task :osx => :build do
   end
 end
 
+namespace :vim do
+  namespace :solarized do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/solarized"
+      )
+    end
+  end
+
+  namespace :ctrlp do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/ctrlp"
+      )
+    end
+  end
+
+  namespace :irblack do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/irblack"
+      )
+    end
+  end
+
+  namespace :vividchalk do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/vividchalk"
+      )
+    end
+  end
+
+  namespace :getafe do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/getafe"
+      )
+    end
+  end
+
+  namespace :powerline do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/powerline"
+      )
+    end
+  end
+
+  namespace :ruby do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/ruby"
+      )
+    end
+  end
+
+  namespace :nerdcommenter do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/nerdcommenter"
+      )
+    end
+  end
+
+  namespace :ack do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/ack"
+      )
+    end
+  end
+
+  namespace :fugitive do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/fugitive"
+      )
+    end
+  end
+end
+
 namespace :oh_my_zsh do
   task :post_build do
     # symlink oh-my-zsh/custom to zsh/
@@ -83,8 +165,11 @@ namespace :oh_my_zsh do
 
     # symlink all themes under zsh/themes from oh-my-zsh/themes
     dst_theme_dir = "#{registry.build_path}/oh-my-zsh/themes"
-    Dir["#{registry.build_path}/zsh/themes/*.zsh-theme"].each do |src_theme_path|
-      worker.symlink(src_theme_path, "#{dst_theme_dir}/#{File.basename(src_theme_path)}")
+    themes_src_glob = "#{registry.build_path}/zsh/themes/*.zsh-theme"
+
+    Dir[themes_src_glob].each do |src_theme_path|
+      worker.symlink src_theme_path,
+        "#{dst_theme_dir}/#{File.basename(src_theme_path)}"
     end
   end
 
