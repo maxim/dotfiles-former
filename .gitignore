@@ -4,3 +4,6 @@ support/build/
 # Backwards compatibility
 config.yml
 compiled/
+
+.netrwhist
+.rvmrc
