@@ -46,3 +46,8 @@
 
 [push]
   default = current
+
+<% if config['github']['ghi'] %>
+[ghi]
+  token = <%= config['github']['ghi'] %>
+<% end %>
