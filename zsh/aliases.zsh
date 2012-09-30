@@ -27,12 +27,6 @@ alias sn='script/news --oneline'
 alias tst='takeup status'
 alias tru='takeup restart unicorn'
 
-# textmate
-alias et='mate . &'
-alias ett='mate app config lib db public spec test features Rakefile Capfile Gemfile CHANGELOG package.json &'
-alias etp='mate app config lib db public spec test features vendor Rakefile Capfile Gemfile CHANGELOG package.json &'
-alias etts='mate app config lib db public script spec test features vendor Rakefile Capfile Gemfile CHANGELOG package.json &'
-
 # todo
 alias todo='todo -d ~/.todo'
 alias t=todo
