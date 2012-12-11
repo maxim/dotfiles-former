@@ -30,6 +30,9 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$HOME/Executables
 export EDITOR='<%= config['zsh']['editor'] %>'
+<% if config['zsh']['bundler_editor'] %>
+export BUNDLER_EDITOR=<%= config['zsh']['bundler_editor'] %>
+<% end %>
 
 # Enable autojump
 if [ -f `brew --prefix`/etc/autojump ]; then
