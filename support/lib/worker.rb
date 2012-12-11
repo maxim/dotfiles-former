@@ -118,7 +118,7 @@ class Worker
 
       unless result.empty?
         File.open(destination, 'w') do |file|
-          file.write(result) 
+          file.write(result + "\n")
         end
       end
     end
