@@ -1,22 +1,32 @@
 <% if config['ssh'] %>
 <% config['ssh'].each do |host| %>
-  Host <%= host['name'] %>
-  HostName <%= host['host'] %>
-  User <%= host['user'] %>
 
-  <% if host['identity'] %>
-    IdentityFile <%= host['identity'] %>
-  <% end %>
+<% if host['name'] %>
+Host <%= host['name'] %>
+<% end %>
+<% if host['host'] %>
+HostName <%= host['host'] %>
+<% end %>
+<% if host['user'] %>
+User <%= host['user'] %>
+<% end %>
+<% if host['forward_agent'] %>
+ForwardAgent yes
+<% end %>
 
-  <% if host['alive'] %>
-    <% if host['alive']['interval'] %>
-      ServerAliveInterval <%= host['alive']['interval'] %>
-    <% end %>
+<% if host['identity'] %>
+IdentityFile <%= host['identity'] %>
+<% end %>
 
-    <% if host['alive']['count'] %>
-      ServerAliveCountMax <%= host['alive']['count'] %>
-    <% end %>
-  <% end %>
+<% if host['alive'] %>
+<% if host['alive']['interval'] %>
+ServerAliveInterval <%= host['alive']['interval'] %>
+<% end %>
+
+<% if host['alive']['count'] %>
+ServerAliveCountMax <%= host['alive']['count'] %>
+<% end %>
+<% end %>
 
 <% end %>
 <% end %>
