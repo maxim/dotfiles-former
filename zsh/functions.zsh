@@ -45,6 +45,10 @@ function track_git_branch() {
   fi
 }
 
+function install_sublime_theme() {
+  cp $1 "$HOME/Library/Application Support/Sublime Text 2/Packages/Color Scheme - Default/"
+}
+
 function open_airbrake_error() {
   if [ ! -f .airbrake-url ]; then
     echo "There is no .airbrake-url file in the current directory..."
