@@ -24,6 +24,9 @@
   # Only show my commits with datestamps
   mine = !git log --pretty=format:"%h' '%ad' '%s" --date=local --date-order --author='<%= config['git']['config']['name'] %>'
 
+  # Show conflicting paths
+  conflicts = diff --name-only --diff-filter=U
+
   # Push and track
   publish = push -u
 [color]
