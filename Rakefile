@@ -108,6 +108,14 @@ namespace :vim do
     end
   end
 
+  namespace :github do
+    task :update do
+      worker.update_submodule(
+        "#{registry.dotfiles_path}/vim/bundle/github"
+      )
+    end
+  end
+
   namespace :getafe do
     task :update do
       worker.update_submodule(

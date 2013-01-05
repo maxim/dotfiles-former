@@ -31,3 +31,6 @@
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/bundle/github"]
+	path = vim/bundle/github
+	url = https://github.com/ricardovaleriano/vim-github-theme
