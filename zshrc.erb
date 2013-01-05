@@ -35,9 +35,7 @@ export BUNDLER_EDITOR=<%= config['zsh']['bundler_editor'] %>
 <% end %>
 
 # Enable autojump
-if [ -f `brew --prefix`/etc/autojump ]; then
-  . `brew --prefix`/etc/autojump
-fi
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
 # Enable hub wrapper for git
 function git(){hub "$@"}
