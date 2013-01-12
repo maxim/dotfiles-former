@@ -61,11 +61,11 @@ augroup vimrcEx
 augroup END
 
 :set t_Co=256
-:set background=dark
-colorscheme ir_black
-hi ColorColumn ctermbg=black guibg=black
-hi CursorLine   cterm=NONE ctermbg=black guibg=black 
-hi CursorColumn cterm=NONE ctermbg=black guibg=black 
+":set background=light
+colorscheme Tomorrow-Night
+hi ColorColumn ctermbg=234 guibg=black
+hi CursorLine cterm=NONE
+"hi CursorColumn cterm=NONE ctermbg=gray guibg=gray
 
 map <leader>y "*y
 
