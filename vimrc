@@ -133,4 +133,4 @@ set listchars=tab:▸\ ,eol:¬
 map <leader>h :s/\:\(\S\+\)\s=>/\1:/g<CR>
 "set noesckeys
 
-set wildignore+=*/tmp/*
+set wildignore+=tmp,.git,app/assets/images,app/assets/fonts,.bundle,node_modules,public/assets,public/system
