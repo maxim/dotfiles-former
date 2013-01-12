@@ -133,5 +133,4 @@ set listchars=tab:▸\ ,eol:¬
 map <leader>h :s/\:\(\S\+\)\s=>/\1:/g<CR>
 set noesckeys
 
-let g:ctrlp_root_markers = ['.ctrlp']
 set wildignore+=*/tmp/*
