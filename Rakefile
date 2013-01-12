@@ -76,91 +76,26 @@ task :osx => :build do
 end
 
 namespace :vim do
-  namespace :solarized do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/solarized"
-      )
-    end
-  end
+  [ :solarized,
+    :ctrlp,
+    :irblack,
+    :vividchalk,
+    :tomorrow,
+    :github,
+    :getafe,
+    :powerline,
+    :ruby,
+    :nerdcommenter,
+    :ack,
+    :fugitive,
+    :tomorrow ].each do |vim_bundle_name|
 
-  namespace :ctrlp do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/ctrlp"
-      )
-    end
-  end
-
-  namespace :irblack do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/irblack"
-      )
-    end
-  end
-
-  namespace :vividchalk do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/vividchalk"
-      )
-    end
-  end
-
-  namespace :github do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/github"
-      )
-    end
-  end
-
-  namespace :getafe do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/getafe"
-      )
-    end
-  end
-
-  namespace :powerline do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/powerline"
-      )
-    end
-  end
-
-  namespace :ruby do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/ruby"
-      )
-    end
-  end
-
-  namespace :nerdcommenter do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/nerdcommenter"
-      )
-    end
-  end
-
-  namespace :ack do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/ack"
-      )
-    end
-  end
-
-  namespace :fugitive do
-    task :update do
-      worker.update_submodule(
-        "#{registry.dotfiles_path}/vim/bundle/fugitive"
-      )
+    namespace vim_bundle_name do
+      task :update do
+        worker.update_submodule(
+          "#{registry.dotfiles_path}/vim/bundle/#{vim_bundle_name}"
+        )
+      end
     end
   end
 end
