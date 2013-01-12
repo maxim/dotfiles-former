@@ -14,6 +14,10 @@ function schema() {
   fi
 }
 
+function sizeup() {
+  wc -l $1/**/* 2>/dev/null | sort -r
+}
+
 function onetest() {
   if [ -d spec ]; then
     ruby -Ispec $1 --color --example $2
