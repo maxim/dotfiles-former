@@ -65,6 +65,11 @@ class Worker
     output
   end
 
+  def run(executable_path)
+    @logger.report('Run', executable_path)
+    `#{executable_path}` unless @dry
+  end
+
   def go_and_run(executable_path)
     executable_dir = File.dirname(executable_path)
     executable_name = File.basename(executable_path)

@@ -34,3 +34,6 @@
 [submodule "vim/bundle/tomorrow"]
 	path = vim/bundle/tomorrow
 	url = https://github.com/chriskempson/vim-tomorrow-theme.git
+[submodule "vim/bundle/commandt"]
+	path = vim/bundle/commandt
+	url = git://git.wincent.com/command-t.git

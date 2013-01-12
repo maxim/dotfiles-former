@@ -77,7 +77,7 @@ end
 
 namespace :vim do
   [ :solarized,
-    :ctrlp,
+    :commandt,
     :irblack,
     :vividchalk,
     :tomorrow,
@@ -96,6 +96,16 @@ namespace :vim do
           "#{registry.dotfiles_path}/vim/bundle/#{vim_bundle_name}"
         )
       end
+    end
+  end
+end
+
+namespace :commandt do
+  task :post_build do
+    path = "#{registry.build_path}/vim/bundle/commandt/ruby/command-t"
+    worker.goto_path(path) do
+      worker.run 'ruby extconf.rb'
+      worker.run 'make'
     end
   end
 end
