@@ -40,7 +40,9 @@ export BUNDLER_EDITOR=<%= config['zsh']['bundler_editor'] %>
 # Enable hub wrapper for git
 function git(){hub "$@"}
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+export PATH="./bin:$PATH"
 
 <% if config['zsh']['vars'] %>
   <% config['zsh']['vars'].each_pair do |name, value| %>
