@@ -65,12 +65,3 @@ function open_airbrake_error() {
 }
 alias abo='open_airbrake_error'
 
-function rvm_unicode_symbol() {
-  sym=`$HOME/.rvm/bin/rvm-prompt u`
-
-  if [[ -n $sym ]]; then
-    echo "${sym} ";
-  else
-    echo "";
-  fi
-}
