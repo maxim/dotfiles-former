@@ -26,16 +26,18 @@ alias sn='script/news --oneline'
 # takeup
 alias tst='takeup status'
 alias tru='takeup restart unicorn'
+alias tra='takeup restart unicorn && takeup restart resque'
+alias trr='takeup restart resque'
 
 # todo
 alias todo='todo -d ~/.todo'
 alias t=todo
-
-# cucumber
-alias cuke='cucumber'
 
 # ps
 alias pgrep='ps ax | grep -v grep | grep $1'
 
 # bundler
 alias gemfile_outdated="grep -Po 'gem\s+(\S+)' Gemfile | cut -d\"'\" -f 2 | cut -d'\"' -f2 | xargs bundle outdated"
+
+# sublime
+alias sp='subl "${PWD##*/}.sublime-project"'
